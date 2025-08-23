@@ -1,3 +1,3 @@
 # word-quiz
-A quiz for learning vocabulary
+A quiz generator for learning vocabulary
 # word-quiz
