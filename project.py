@@ -11,7 +11,7 @@
 
 import argparse
 import csv
-from random import randrange
+from random import shuffle, randrange
 import sys
 
 class Player:
@@ -44,6 +44,8 @@ def main():
     else:
         # load save state
         ...
+    
+    generate_quiz(full_list, questions)
 
 
 def load_list(source_file):
@@ -83,9 +85,50 @@ def load():
     """Load list from save file."""
     ...
 
-def generate_quiz():
+def generate_quiz(full_list, questions):
     """Generates the quiz."""
-    ...
+    correct = []
+    incorrect = []
+
+    for question in questions:
+        answers = []
+        answers.append(list(question.values())[1])
+        index = []
+
+        for _ in range(3):
+            n = randrange(len(full_list))
+
+            while n in index:
+                n = randrange(len(full_list))
+
+            answers.append(list(full_list[n].values())[1])
+            index.append(n)
+        
+        shuffle(answers)
+        print(f"What's {list(question.values())[0]}?")
+
+        for i, answer in enumerate(answers):
+            print(f"{i+1}) {answer}")
+        
+        guess_index = int(input(" "))
+
+        guess = answers[guess_index-1]
+        print(guess)
+        print(list(question.values())[1])
+
+        if list(question.values())[1] == guess:
+            print("Correct!\n")
+            correct.append(question)
+
+        else:
+            print("Incorrect...\n")
+            incorrect.append(question)
+    
+    print(f"You got {len(correct)} questions right and {len(incorrect)} wrong.")
+    print(f"Final score: {len(correct)}/{len(questions)}")
+    if len(correct) == len(questions):
+        print("CONGRATULATIONS!!!!!")
+
 
 
 def save():
