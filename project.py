@@ -1,9 +1,5 @@
 # TO DO:
-# more introductions
-# generate quiz
-# end screen with option to repeat or save
-# save function
-# load function
+# add & adjust text w/focus on player experience
 # error handling
 # tests
 # docstrings for all functions
@@ -14,11 +10,12 @@ import csv
 from random import shuffle, randrange
 import sys
 
-class Player:
+class Game:
     def __init__(self, rounds):
         self.introduction() # automatically introduces game if player is initalized
 
         self.score = 0
+        self.total_questions = 0
         self.rounds = rounds
     
     def introduction(self):
@@ -27,25 +24,27 @@ class Player:
         # explain quiz...
 
     def reset(self, rounds):
-        self.scoure = 0
+        self.score = 0
         self.rounds = rounds
 
 def main():
     parser = argparse.ArgumentParser(description="Generate quiz from CSV file")
     parser.add_argument("-c", "--csv", help="CSV file to act as source for quiz", required=True)
-    parser.add_argument("-l", "--load", help="Load save file of words to study.", required=False)
     args = parser.parse_args()
 
-    player = Player(int(input("How many rounds? ")))
+    game = Game(int(input("How many rounds? ")))
     full_list = load_list(args.csv)
 
-    if not args.load:
-        questions = generate_questions(full_list, player.rounds)
-    else:
-        # load save state
-        ...
-    
-    generate_quiz(full_list, questions)
+    while True:
+        game.score = generate_quiz(full_list, generate_questions(full_list, game.rounds))
+        game.total_questions += game.rounds
+
+        print(f"Your total score is {game.score} out of {game.total_questions} ({int(game.score/game.total_questions*100)}%)")
+
+        if not play_again():
+            print("Thanks for playing!")
+            break
+        
 
 
 def load_list(source_file):
@@ -80,11 +79,6 @@ def generate_questions(full_list, rounds):
 
     return quiz_list
 
-
-def load():
-    """Load list from save file."""
-    ...
-
 def generate_quiz(full_list, questions):
     """Generates the quiz."""
     correct = []
@@ -110,11 +104,11 @@ def generate_quiz(full_list, questions):
         for i, answer in enumerate(answers):
             print(f"{i+1}) {answer}")
         
-        guess_index = int(input(" "))
+        guess_index = int(input("????? "))
 
         guess = answers[guess_index-1]
-        print(guess)
-        print(list(question.values())[1])
+        print(f"Your answer: {guess}")
+        print(f"Correct answer: {list(question.values())[1]}")
 
         if list(question.values())[1] == guess:
             print("Correct!\n")
@@ -129,11 +123,25 @@ def generate_quiz(full_list, questions):
     if len(correct) == len(questions):
         print("CONGRATULATIONS!!!!!")
 
+    return len(correct)
 
+def play_again():
+    """Determine if player wants to play another round"""
+    no_choice = True
 
-def save():
-    """Saves the quiz for future study."""
-    ...
+    while no_choice:
+        try:
+            choice = input("Would you like to play again? y/n ").casefold()
+            if choice == 'y':
+                no_choice = False
+                return True
+            elif choice == 'n':
+                no_choice = False
+                return False
+            else:
+                raise ValueError
+        except ValueError:
+            pass
 
 
 if __name__ == "__main__":
