@@ -1,6 +1,5 @@
 # TO DO:
 # add & adjust text w/focus on player experience
-# error handling
 # tests
 # docstrings for all functions
 # include text-to-csv utility
@@ -8,7 +7,6 @@
 import argparse
 import csv
 from random import shuffle, randrange
-import sys
 
 class Game:
     def __init__(self, rounds):
@@ -32,7 +30,20 @@ def main():
     parser.add_argument("-c", "--csv", help="CSV file to act as source for quiz", required=True)
     args = parser.parse_args()
 
-    game = Game(int(input("How many rounds? ")))
+    while True:
+        try:
+            rounds = int(input("How many rounds? "))
+            if rounds <= 0:
+                print("Input a number greater than 0.")
+            elif rounds > 10:
+                print("Input a number 10 or less.")
+            else:
+                break
+        except ValueError:
+            print("Enter a valid number between 1 and 10 inclusive.")
+   
+    game = Game(rounds)
+
     full_list = load_list(args.csv)
 
     while True:
@@ -104,7 +115,15 @@ def generate_quiz(full_list, questions):
         for i, answer in enumerate(answers):
             print(f"{i+1}) {answer}")
         
-        guess_index = int(input("????? "))
+        while True:
+            try:
+                guess_index = int(input("????? "))
+                if guess_index < 1 or guess_index > 4:
+                    print("Invalid answer.")
+                else:
+                    break
+            except ValueError:
+                print("Invalid answer.")
 
         guess = answers[guess_index-1]
         print(f"Your answer: {guess}")
@@ -127,16 +146,12 @@ def generate_quiz(full_list, questions):
 
 def play_again():
     """Determine if player wants to play another round"""
-    no_choice = True
-
-    while no_choice:
+    while True:
         try:
             choice = input("Would you like to play again? y/n ").casefold()
             if choice == 'y':
-                no_choice = False
                 return True
             elif choice == 'n':
-                no_choice = False
                 return False
             else:
                 raise ValueError
