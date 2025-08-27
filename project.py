@@ -1,5 +1,4 @@
 # TO DO:
-# add & adjust text w/focus on player experience
 # tests
 # docstrings for all functions
 # include text-to-csv utility
@@ -7,19 +6,17 @@
 import argparse
 import csv
 from random import shuffle, randrange
+from rich import box
+from rich.console import Console
+from rich.table import Table
+from rich.text import Text
 
 class Game:
-    def __init__(self, rounds):
-        self.introduction() # automatically introduces game if player is initalized
-
+    def __init__(self, console, rounds):
+        self.console = console
         self.score = 0
         self.total_questions = 0
         self.rounds = rounds
-    
-    def introduction(self):
-        # introduce player to the quiz
-        print("Welcome to the quiz!")
-        # explain quiz...
 
     def reset(self, rounds):
         self.score = 0
@@ -30,30 +27,33 @@ def main():
     parser.add_argument("-c", "--csv", help="CSV file to act as source for quiz", required=True)
     args = parser.parse_args()
 
+    console = Console()
+    #introduction = Text("Welcome to the quiz!", justify="center")
+    console.rule("Welcome to the quiz!")
     while True:
         try:
-            rounds = int(input("How many rounds? "))
+            rounds = int(input("How many words would you like to be quized on? "))
             if rounds <= 0:
-                print("Input a number greater than 0.")
+                console.print("Input a number greater than 0.")
             elif rounds > 10:
-                print("Input a number 10 or less.")
+                console.print("Input a number 10 or less.")
             else:
                 break
         except ValueError:
-            print("Enter a valid number between 1 and 10 inclusive.")
+            console.print("Enter a valid number between 1 and 10 inclusive.")
    
-    game = Game(rounds)
+    game = Game(console, rounds)
 
     full_list = load_list(args.csv)
 
     while True:
-        game.score = generate_quiz(full_list, generate_questions(full_list, game.rounds))
+        game.score = generate_quiz(console, full_list, generate_questions(full_list, game.rounds))
         game.total_questions += game.rounds
 
-        print(f"Your total score is {game.score} out of {game.total_questions} ({int(game.score/game.total_questions*100)}%)")
+        console.print(f"Your total score is {game.score} out of {game.total_questions} ({int(game.score/game.total_questions*100)}%)", end="\n\n")
 
         if not play_again():
-            print("Thanks for playing!")
+            console.rule("Thanks for playing!")
             break
         
 
@@ -90,7 +90,7 @@ def generate_questions(full_list, rounds):
 
     return quiz_list
 
-def generate_quiz(full_list, questions):
+def generate_quiz(console, full_list, questions):
     """Generates the quiz."""
     correct = []
     incorrect = []
@@ -103,44 +103,67 @@ def generate_quiz(full_list, questions):
         for _ in range(3):
             n = randrange(len(full_list))
 
-            while n in index:
+            while n in index and not question.values() == full_list[n].values():
                 n = randrange(len(full_list))
 
             answers.append(list(full_list[n].values())[1])
             index.append(n)
         
         shuffle(answers)
-        print(f"What's {list(question.values())[0]}?")
+        console.print("") # margin
+
+        # displaying question
+        table = Table(title=f"What's {list(question.values())[0]}?", show_header=False, show_lines=True, box=box.ASCII)
+        table.add_column()
+        table.add_column()
 
         for i, answer in enumerate(answers):
-            print(f"{i+1}) {answer}")
+            table.add_row(str(i+1), answer)
         
+        console.print(table)
+
+        # getting the player's input
         while True:
             try:
-                guess_index = int(input("????? "))
+                arrows = "-------> "
+                console.print(arrows, end="")
+
+                guess_index = int(input())
                 if guess_index < 1 or guess_index > 4:
-                    print("Invalid answer.")
+                    console.print("Invalid answer.")
                 else:
                     break
             except ValueError:
-                print("Invalid answer.")
+                console.print("Invalid answer.")
 
         guess = answers[guess_index-1]
-        print(f"Your answer: {guess}")
-        print(f"Correct answer: {list(question.values())[1]}")
 
         if list(question.values())[1] == guess:
-            print("Correct!\n")
+            colour = "green"
+        else:
+            colour = "red"
+
+        your_answer = Text(f"Your answer: {guess}")
+        correct_answer = Text(f"Correct answer: {list(question.values())[1]}", style=colour)
+
+        console.print(your_answer)
+        console.print(correct_answer)
+
+        #console.print(f"Your answer: {guess}")
+        #console.print(f"Correct answer: {list(question.values())[1]}")
+
+        if list(question.values())[1] == guess:
+            console.print("Correct!\n")
             correct.append(question)
 
         else:
-            print("Incorrect...\n")
+            console.print("Incorrect...\n")
             incorrect.append(question)
     
-    print(f"You got {len(correct)} questions right and {len(incorrect)} wrong.")
-    print(f"Final score: {len(correct)}/{len(questions)}")
+    console.print(f"You got {len(correct)} questions right and {len(incorrect)} wrong.")
+    console.print(f"Final score: {len(correct)}/{len(questions)}")
     if len(correct) == len(questions):
-        print("CONGRATULATIONS!!!!!")
+        console.print("CONGRATULATIONS!!!!!")
 
     return len(correct)
 
