@@ -5,6 +5,7 @@
 
 import argparse
 import csv
+import sys
 from random import shuffle, randrange
 from rich import box
 from rich.console import Console
@@ -28,8 +29,11 @@ def main():
     args = parser.parse_args()
 
     console = Console()
-    #introduction = Text("Welcome to the quiz!", justify="center")
+
+    print("\n")
     console.rule("Welcome to the quiz!")
+    print("\n")
+
     while True:
         try:
             rounds = int(input("How many words would you like to be quized on? "))
@@ -53,7 +57,9 @@ def main():
         console.print(f"Your total score is {game.score} out of {game.total_questions} ({int(game.score/game.total_questions*100)}%)", end="\n\n")
 
         if not play_again():
+            print("\n")
             console.rule("Thanks for playing!")
+            print("\n")
             break
         
 
@@ -68,6 +74,9 @@ def load_list(source_file):
         for row in reader:
             full_quiz_list.append(row)
     
+    if len(full_quiz_list) < 4:
+        sys.exit("ERROR: Source list is too short. Cannot generate quiz from less than 4 words.")
+        
     return full_quiz_list
 
 
@@ -87,7 +96,6 @@ def generate_questions(full_list, rounds):
         quiz_index.append(n)
 
         quiz_list.append(full_list[n])
-
     return quiz_list
 
 def generate_quiz(console, full_list, questions):
