@@ -1,10 +1,10 @@
 # TO DO:
-# tests
+# text file handling
 # docstrings for all functions
-# include text-to-csv utility
 
 import argparse
 import csv
+from num2words import num2words
 import sys
 from random import shuffle, randrange
 from rich import box
@@ -24,8 +24,11 @@ class Game:
         self.rounds = rounds
 
 def main():
-    parser = argparse.ArgumentParser(description="Generate quiz from CSV file")
-    parser.add_argument("-c", "--csv", help="CSV file to act as source for quiz", required=True)
+    parser = argparse.ArgumentParser(description="Generate quiz from CSV or text file")
+    parser.add_argument("-c", "--csv", help="CSV file to act as source for quiz", default=None)
+    parser.add_argument("-t", "--text", help="Text file to input", default=None)
+    parser.add_argument("-l", "--columns", nargs="+", help="Columns for list", default=None)
+    parser.add_argument("-s", "--split_on", help="Character to split on (examples: ':', '-', etc)", default=None)
     args = parser.parse_args()
 
     console = Console()
@@ -33,6 +36,33 @@ def main():
     print("\n")
     console.rule("Welcome to the quiz!")
     print("\n")
+
+    if not args.csv and not args.text:
+        try:
+            file = input("What file would you like to use for the quiz? ").strip()
+        except FileNotFoundError:
+            sys.exit("File not found.")
+
+        if file.endswith('.csv'):
+            full_list = load_from_csv(file)
+            print(full_list)
+
+        elif file.endswith('.txt'):
+            columns = []
+            for n in range(2):
+                columns.append(input(f"Input the {num2words(n+1, to="ordinal_num")} column's name: ").strip())
+            
+            seperator = input("What are the words seperated by? (such as ':', '-', etc) ").strip()
+
+            full_list = load_from_txt(file, columns, seperator)
+            print(full_list)
+
+        else:
+            sys.exit("We can only accept a CSV or TXT file.")
+    elif args.text:
+        ...
+    else:
+        full_list = load_from_csv(args.csv)
 
     while True:
         try:
@@ -48,7 +78,9 @@ def main():
    
     game = Game(console, rounds)
 
-    full_list = load_list(args.csv)
+    print("\n")
+    console.rule("QUIZ START")
+    print("\n")
 
     while True:
         game.score = generate_quiz(console, full_list, generate_questions(full_list, game.rounds))
@@ -63,8 +95,28 @@ def main():
             break
         
 
+def load_from_txt(txt, columns, split_on):
+    full_quiz_list = []
+    
+    try:
+        with open(txt) as file:
+            for line in file:
+                if ":" in line:
+                    row = line.strip().split(split_on)
+                    dictionary = {}
+                    for i in range(len(columns)):
+                        dictionary[columns[i]] = row[i].strip()
+                    full_quiz_list.append(dictionary)
 
-def load_list(source_file):
+    except FileNotFoundError:
+        sys.exit("File not found.")
+
+    if len(full_quiz_list) < 4:
+        sys.exit("ERROR: Source list is too short. Cannot generate quiz from less than 4 words.")
+
+    return full_quiz_list
+
+def load_from_csv(source_file):
     """Imports source from CSV file and returns the full list."""
     full_quiz_list = []
 
