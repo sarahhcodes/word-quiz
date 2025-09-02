@@ -1,11 +1,11 @@
 # word-quiz
 A quiz generator for learning vocabulary
-# word-quiz
+
+## Introduction
 This program is designed to create quizes in the command line from CSV or text file lists of vocabuary words. It is also my final project for [Harvard's CS50 Introduction to Programming with Python][https://cs50.harvard.edu/python/].
 
-SECTIONS:
-##How to Use
-###Requirements
+## How to Use
+### Requirements
 - argparse
     - Parses command line arguments
 - csv
@@ -19,15 +19,15 @@ SECTIONS:
 - sys
     - Quits when appropriate
 
-###Instructions
+### Instructions
 ...
 
-###Formatting Text File
+### Formatting Text File
 To use the program properly, the text files should consist of a list of vocabuary words, one on each line and seperated by a consistant character (such as ':', '-', etc).
 
 The sample text files included in the /txt folder were copy and pasted from websites.
 
-##Design
+## Design
 My intention with the program was to make lists of words copy and pasted from the internet into something useful for study.
 
 I opted for a command line program to keep the project simple.
