@@ -2,7 +2,7 @@
 A quiz generator for learning vocabulary
 
 ## Introduction
-This program is designed to create quizes in the command line from CSV or text file lists of vocabuary words. It is also my final project for [Harvard's CS50 Introduction to Programming with Python][https://cs50.harvard.edu/python/].
+This program is designed to create quizes in the command line from CSV or text file lists of vocabuary words. It is also my final project for [Harvard's CS50 Introduction to Programming with Python](https://cs50.harvard.edu/python/).
 
 ## How to Use
 ### Requirements
@@ -32,7 +32,10 @@ My intention with the program was to make lists of words copy and pasted from th
 
 I opted for a command line program to keep the project simple.
 
-##Possible extensions
+## Possible extensions
 - I am studying Japanese, and it would be useful to import and quiz files with multiple columns for each word. For example, it would be useful for kanji study to have the kanji, the on reading (Chinese reading), the kun reading (Japanese reading), and the English translation.
-- Importing API from websites like Wanikani, giving an alternate way to study other vocabuary sources.
+- Importing API from websites like [Wanikani](http://wanikani.com), giving an alternate way to study other vocabuary sources.
 - Option to have the quiz run in the opposite direction. (From English to Japanese for instance rather than just Japanese to English)
+
+## Credits
+- INCLUDE SOURCES FOR WORD LISTS
