@@ -25,6 +25,9 @@ DESCRIBE FLAGS
 
 If these flags are not used, the program will default to a menu for importing text or csv file.
 
+# Generating Quiz
+...
+
 ### Formatting Text File
 To use the program properly, the text files should consist of a list of vocabuary words, one on each line and seperated by a consistant character (such as ':', '-', etc).
 
