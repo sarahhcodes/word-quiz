@@ -60,7 +60,7 @@ def main():
         else:
             sys.exit("We can only accept a CSV or TXT file.")
     elif args.text:
-        ...
+        full_list = load_from_txt(args.text, args.columns, args.split_on)
     else:
         full_list = load_from_csv(args.csv)
 
@@ -101,7 +101,7 @@ def load_from_txt(txt, columns, split_on):
     try:
         with open(txt) as file:
             for line in file:
-                if ":" in line:
+                if split_on in line:
                     row = line.strip().split(split_on)
                     dictionary = {}
                     for i in range(len(columns)):
