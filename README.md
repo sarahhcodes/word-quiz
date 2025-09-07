@@ -4,8 +4,7 @@ A quiz generator for learning vocabulary
 ## Introduction
 This program is designed to create quizes in the command line from CSV or text file lists of vocabuary words. It is also my final project for [Harvard's CS50 Introduction to Programming with Python](https://cs50.harvard.edu/python/).
 
-## How to Use
-### Requirements
+## Requirements
 - argparse
     - Parses command line arguments
 - csv
@@ -19,13 +18,13 @@ This program is designed to create quizes in the command line from CSV or text f
 - sys
     - Quits when appropriate
 
-### Instructions
-# Running from command line
+## Instructions
+### Running from command line
 DESCRIBE FLAGS
 
 If these flags are not used, the program will default to a menu for importing text or csv file.
 
-# Generating Quiz
+### Generating Quiz
 ...
 
 ### Formatting Text File
