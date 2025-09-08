@@ -20,12 +20,31 @@ This program is designed to create quizes in the command line from CSV or text f
 
 ## Instructions
 ### Running from command line
-DESCRIBE FLAGS
+To use the program, type:
+python project.py *optional flags*
 
-If these flags are not used, the program will default to a menu for importing text or csv file.
+Optional Flags:
+*Using these flags will bypass a default import menu*
+- -c or --csv
+    - CSV file to act as source for quiz
+- -t or --text
+    - Text file to input
+- -l or --columns
+    - Columns for list
+- -s or --split_on
+    - Character to split on (examples: ':', '-', etc)
+
+For example, to import the included vocabulary csv, run:
+`python project.py -c csv/vocab.csv`
+
+or to import the included vocabulary text file, run:
+`python project.py -t txt/JLPTN3vocab.txt -l Japanese English -s :`
+
+If you do not use these flags, the program will run an import menu for the user to import their csv or text file.
+    
 
 ### Generating Quiz
-...
+After importing the file, the user will be prompted to enter how many words they would like to be quized on...
 
 ### Formatting Text File
 To use the program properly, the text files should consist of a list of vocabuary words, one on each line and seperated by a consistant character (such as ':', '-', etc).
