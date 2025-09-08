@@ -35,10 +35,12 @@ Optional Flags:
     - Character to split on (examples: ':', '-', etc)
 
 For example, to import the included vocabulary csv, run:
-```python project.py -c csv/vocab.csv```
+
+`python project.py -c csv/vocab.csv`
 
 or to import the included vocabulary text file, run:
-```python project.py -t txt/JLPTN3vocab.txt -l Japanese English -s :```
+
+`python project.py -t txt/JLPTN3vocab.txt -l Japanese English -s :`
 
 If you do not use these flags, the program will run an import menu for the user to import their csv or text file.
     
