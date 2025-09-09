@@ -83,7 +83,7 @@ def main():
     print("\n")
 
     while True:
-        game.score = generate_quiz(console, full_list, generate_questions(full_list, game.rounds))
+        game.score += generate_quiz(console, full_list, generate_questions(full_list, game.rounds))
         game.total_questions += game.rounds
 
         console.print(f"Your total score is {game.score} out of {game.total_questions} ({int(game.score/game.total_questions*100)}%)", end="\n\n")

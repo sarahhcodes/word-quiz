@@ -46,10 +46,22 @@ If you do not use these flags, the program will run an import menu for the user 
     
 
 ### Generating Quiz
-After importing the file, the user will be prompted to enter how many words they would like to be quized on...
+After importing the file, the user will be prompted to enter how many words they would like to be quized on. (Up to a maximum of 10)
+
+The program will then generate a randomly generated quiz of however many words the user selected.
+
+After the round is finished, the user will see their final score and will be prompted to run the quiz again.
+
+If the quiz is run again, after the quiz is finished, the user's new score will be added to their total score and the user will be prompted to run the quiz again.
+
+This process will continue until the user quits by declining to play again.
 
 ### Formatting Text File
-To use the program properly, the text files should consist of a list of vocabuary words, one on each line and seperated by a consistant character (such as ':', '-', etc).
+To use the program properly, the text files should consist of a list of vocabuary words, one on each line and seperated by a consistant character (such as ':', '-', etc) that is ONLY used between each vocabuary term.
+
+For example:
+
+```赤い (akai): red```
 
 The sample text files included in the /txt folder were copy and pasted from websites.
 
@@ -57,6 +69,10 @@ The sample text files included in the /txt folder were copy and pasted from webs
 My intention with the program was to make lists of words copy and pasted from the internet into something useful for study.
 
 I opted for a command line program to keep the project simple.
+
+To improve readability in the terminal, I used the Rich library to add colour and formatting to the program.
+
+...
 
 ## Possible extensions
 - I am studying Japanese, and it would be useful to import and quiz files with multiple columns for each word. For example, it would be useful for kanji study to have the kanji, the on reading (Chinese reading), the kun reading (Japanese reading), and the English translation.
