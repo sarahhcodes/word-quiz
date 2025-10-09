@@ -20,7 +20,7 @@ This program is designed to create quizes in the command line from CSV or text f
 
 
 ## Vocabuary Source
-Included in the csv and txt folders are sample vocabuary lists. I am using lists based on the Japanese Language Proficiancy Test (JLPT) for my own study purposes. The program will generate quizes based on any word list with a key value pair.
+Included in the csv and txt folders are sample vocabuary lists. I am using lists based on the JLPT (Japanese Language Proficiency Test) for my own study purposes. The program will generate quizes based on any word list with a key value pair.
 
 
 ### Formatting Text File
