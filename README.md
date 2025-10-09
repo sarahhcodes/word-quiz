@@ -19,6 +19,18 @@ This program is designed to create quizes in the command line from CSV or text f
     - Quits when appropriate
 
 
+## Vocabuary Source
+Included in the csv and txt folders are sample vocabuary lists. I am using lists based on the Japanese Language Proficiancy Test (JLPT) for my own study purposes. The program will generate quizes based on any word list with a key value pair.
+
+
+### Formatting Text File
+If you want to use your own word list, to use the program properly, the text files should consist of a list of vocabuary words, one on each line and seperated by a consistant character (such as ':', '-', etc) that is ONLY used between each key value pair.
+
+For example:
+
+```赤い (akai): red```
+
+
 ## Instructions
 ### Installing Libraries
 To install pip-installable libraries, use the command:
@@ -63,14 +75,6 @@ If the quiz is run again, after the quiz is finished, the user's new score will 
 
 This process will continue until the user quits by declining to play again.
 
-### Formatting Text File
-To use the program properly, the text files should consist of a list of vocabuary words, one on each line and seperated by a consistant character (such as ':', '-', etc) that is ONLY used between each vocabuary term.
-
-For example:
-
-```赤い (akai): red```
-
-The sample text files included in the /txt folder were copy and pasted from websites.
 
 ## Design
 My intention with the program was to make lists of words copy and pasted from the internet into something useful for study.
