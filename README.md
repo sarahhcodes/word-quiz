@@ -18,7 +18,14 @@ This program is designed to create quizes in the command line from CSV or text f
 - sys
     - Quits when appropriate
 
+
 ## Instructions
+### Installing Libraries
+To install pip-installable libraries, use the command:
+
+`pip install -r requirements.txt`
+
+
 ### Running from command line
 To use the program, type:
 python project.py *optional flags*
@@ -72,12 +79,12 @@ I opted for a command line program to keep the project simple.
 
 To improve readability in the terminal, I used the Rich library to add colour and formatting to the program.
 
-...
-
 ## Possible extensions
 - I am studying Japanese, and it would be useful to import and quiz files with multiple columns for each word. For example, it would be useful for kanji study to have the kanji, the on reading (Chinese reading), the kun reading (Japanese reading), and the English translation.
 - Importing API from websites like [Wanikani](http://wanikani.com), giving an alternate way to study other vocabuary sources.
 - Option to have the quiz run in the opposite direction. (From English to Japanese for instance rather than just Japanese to English)
 
 ## Credits
-- INCLUDE SOURCES FOR WORD LISTS
+The included source file for the test vocabuary is from [JTest4You](http://japanesetest4you.com/jlpt-n3-vocabulary-list/) and was downloaded August 16, 2025.
+
+Special thank you to the [CS50P](https://cs50.harvard.edu/python/) course team!
