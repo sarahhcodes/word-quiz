@@ -33,10 +33,6 @@ def main():
 
     console = Console()
 
-    print("\n")
-    console.rule("Welcome to the quiz!")
-    print("\n")
-
     if not args.csv and not args.text:
         try:
             file = input("What file would you like to use for the quiz? ").strip()
@@ -45,7 +41,6 @@ def main():
 
         if file.endswith('.csv'):
             full_list = load_from_csv(file)
-            print(full_list)
 
         elif file.endswith('.txt'):
             columns = []
@@ -55,14 +50,19 @@ def main():
             seperator = input("What are the words seperated by? (such as ':', '-', etc) ").strip()
 
             full_list = load_from_txt(file, columns, seperator)
-            print(full_list)
 
         else:
             sys.exit("We can only accept a CSV or TXT file.")
-    elif args.text:
+    elif args.text and args.columns and args.split_on:
         full_list = load_from_txt(args.text, args.columns, args.split_on)
+    elif args.text or args.columns or args.split_on:
+        sys.exit("Try again with flags for text file, columns, and character to split on. (Run project.py -h for more information)")
     else:
         full_list = load_from_csv(args.csv)
+
+    print("\n")
+    console.rule("Welcome to the quiz!")
+    print("\n")
 
     while True:
         try:
