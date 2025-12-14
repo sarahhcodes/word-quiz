@@ -1,5 +1,5 @@
 # word-quiz
-A quiz generator for learning vocabulary
+A command line quiz generator for learning vocabulary
 
 ## Introduction
 This program is designed to create quizes in the command line from CSV or text file lists of vocabuary words. It is also my final project for [Harvard's CS50 Introduction to Programming with Python](https://cs50.harvard.edu/python/).
@@ -20,11 +20,13 @@ This program is designed to create quizes in the command line from CSV or text f
 
 
 ## Vocabuary Source
-Included in the csv and txt folders are sample vocabuary lists. I am using lists based on the JLPT (Japanese Language Proficiency Test) for my own study purposes. The program will generate quizes based on any word list with a key value pair.
+Included in the csv and txt folders are sample vocabuary lists based on the JLPT (Japanese Language Proficiency Test). I have chosen JLPT vocabuary lists based on for my own study purposes, but the program will generate quizes based on any word list with a key value pair.
 
+### CSV Requirements
+The program will run for any csv file which consists of two columns which are a key value pair.
 
 ### Formatting Text File
-If you want to use your own word list, to use the program properly, the text files should consist of a list of vocabuary words, one on each line and seperated by a consistant character (such as ':', '-', etc) that is ONLY used between each key value pair.
+If you want to use your own word list from a text file, to use the program properly, the text files should consist of a list of vocabuary words, one on each line and seperated by a consistant character (such as ':', '-', etc) that is ONLY used between each key value pair.
 
 For example:
 
@@ -81,7 +83,7 @@ My intention with the program was to make lists of words copy and pasted from th
 
 I opted for a command line program to keep the project simple.
 
-To improve readability in the terminal, I used the Rich library to add colour and formatting to the program.
+To improve readability in the terminal, I used the [Rich library](https://github.com/Textualize/rich) to add colour and formatting to the program.
 
 ## Possible extensions
 - I am studying Japanese, and it would be useful to import and quiz files with multiple columns for each word. For example, it would be useful for kanji study to have the kanji, the on reading (Chinese reading), the kun reading (Japanese reading), and the English translation.
