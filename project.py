@@ -1,7 +1,3 @@
-# TO DO:
-# text file handling
-# docstrings for all functions
-
 import argparse
 import csv
 from num2words import num2words
@@ -13,14 +9,11 @@ from rich.table import Table
 from rich.text import Text
 
 class Game:
+    """Class containing basic info on game"""
     def __init__(self, console, rounds):
         self.console = console
         self.score = 0
         self.total_questions = 0
-        self.rounds = rounds
-
-    def reset(self, rounds):
-        self.score = 0
         self.rounds = rounds
 
 def main():
@@ -96,6 +89,7 @@ def main():
         
 
 def load_from_txt(txt, columns, split_on):
+    """Imports source from text file and returns the full list."""
     full_quiz_list = []
     
     try:
@@ -208,9 +202,6 @@ def generate_quiz(console, full_list, questions):
 
         console.print(your_answer)
         console.print(correct_answer)
-
-        #console.print(f"Your answer: {guess}")
-        #console.print(f"Correct answer: {list(question.values())[1]}")
 
         if list(question.values())[1] == guess:
             console.print("Correct!\n")
